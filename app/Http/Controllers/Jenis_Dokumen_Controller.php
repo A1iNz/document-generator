@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DataTables;
-use App\pos_m;
+use App\jenis_dokumen;
 
 class Jenis_Dokumen_Controller extends Controller
 {
@@ -14,11 +14,11 @@ class Jenis_Dokumen_Controller extends Controller
     //     return view('master.jenis_dokumen.index', compact('title'));
     // }
 
-    // public function get_data(){
-    //     return Datatables::of(pos_m::all())
-    //     ->make(true);
-    //     return view('master.jenis_dokumen.index');
-    // }
+    public function get_data(){
+        return Datatables::of(jenis_dokumen::all())
+        ->make(true);
+        return view('master.jenis_dokumen.index');
+    }
 
     public function index(){
         $title = 'Master Jenis Dokumen';
@@ -26,7 +26,7 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function get(){
-        $model = pos_m::all();
+        $model = jenis_dokumen::all();
         return view('master.Jenis_Dokumen.get', compact('model'));
     }
 
@@ -35,13 +35,13 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function edit($id){
-        $model = pos_m::findOrFail($id);
+        $model = jenis_dokumen::findOrFail($id);
         return view('master.Jenis_Dokumen.edit', compact('model'));
     }
 
     public function update(Request $request, $id){
         $request->validate(self::validasi());
-        $model = pos_m::findOrFail($id);
+        $model = jenis_dokumen::findOrFail($id);
         if($model->update($request->all())){
             return [
                 'success' => true,
@@ -57,7 +57,7 @@ class Jenis_Dokumen_Controller extends Controller
 
     public function store(Request $request){
         $request->validate(self::validasi());
-        if(pos_m::create($request->all())){
+        if(jenis_dokumen::create($request->all())){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Tambahkan'
@@ -71,7 +71,7 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function delete($id){
-        $model = pos_m::find($id);
+        $model = jenis_dokumen::find($id);
             if($model){
                 if($model->delete()){
                     return [
@@ -95,10 +95,8 @@ class Jenis_Dokumen_Controller extends Controller
     public function validasi(){
         return [
             'nama_surat' => 'required',
-            '' => 'required',
-            'password' => '',
-            'host' => 'required|numeric',
-            'port' => 'required|numeric',
+            'object' => 'required',
+            'file' => '',
         ];
     }
 

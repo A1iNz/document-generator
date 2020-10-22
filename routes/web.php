@@ -15,7 +15,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
 
 Route::group(['prefix' => 'dashboard'], function(){
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'objek'], function(){
 Route::group(['prefix' => 'jenis_dokumen'], function(){
     Route::get('/', 'Jenis_Dokumen_Controller@index')->name('jenis_dokumen');
     Route::get('create', 'Jenis_Dokumen_Controller@create')->name('jenis_dokumen.create');
-    Route::get('get', 'Jenis_Dokumen_Controller@get')->name('jenis_dokumen.get');
+    Route::get('get', 'Jenis_Dokumen_Controller@get_data')->name('jenis_dokumen.get_data');
     Route::post('store', 'Jenis_Dokumen_Controller@store')->name('jenis_dokumen.store');
     Route::post('update/{id?}', 'Jenis_Dokumen_Controller@update')->name('jenis_dokumen.update');
     Route::get('edit/{id?}', 'Jenis_Dokumen_Controller@edit')->name('jenis_dokumen.edit');

@@ -26,42 +26,17 @@
 @endsection
 @section('js')
     <script>
-        function create(){
-            $.ajax({
-                url: '<?= route('jenis_dokumen.create') ?>',
-                success: function(response){
-                bootbox.dialog({
-                    title: 'create',
-                    message: response,
-                    backdrop: true,
-                });
-                }
-            });
-        }
-
-        $(function(){
-            get();
-        });
-
-        function get(){
-            $.ajax({
-            url: '<?= route('jenis_dokumen.get') ?>',
-            success: function(response){
-                $('.isi').html(response);
-            }
-            });
-        }
     var datatable;
         $(function(){
             datatable = $('#table').DataTable({
                 processing:true,
                 searchDelay:1000,
                 serverSide:true,
-                ajax:'<?= route('jenis_dokumen.get') ?>',
+                ajax:'<?= route('jenis_dokumen.get_data') ?>',
                 columns:[
                     {data: 'nama_surat', name: 'nama_surat'},
                     {data: 'object', name: 'object'},
-                    {data: 'password', name: 'password'},
+                    {data: 'format', name: 'format'},
                     {data: 'id',width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
                       return '<a href="javascript:void()" class="btn btn-info btn-sm" onclick="view('+data+')">view</a> \n\
                             <a href="javascript:void()" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</a>\n\
@@ -70,5 +45,114 @@
                 ]
             });
         })
+        function create(){
+            $.ajax({
+                url: '<?= route('jenis_dokumen.create') ?>',
+                success: function(response){
+                bootbox.dialog({
+                    title: 'create',
+                    message: response,
+                });
+                Datatable.ajax.reload()
+                }
+            });
+        }
+
+        $(function(){
+            get();
+        });
+
+        function update(id){
+            $('#form_jenis_dokumen .alert').remove();
+            $.ajax({
+            url: '<?= route('jenis_dokumen.update') ?>/'+id,
+            dataType: 'json',
+            type: 'post',
+            data: $('#form_jenis_dokumen').serialize(),
+            success: function(response){
+                if(response.success){
+                    swal({
+                        title: "Create",
+                        text: response.message,
+                        icon: "success",
+                        button: "Oke",
+                    });
+                    bootbox.hideAll();
+                    Datatable.ajax.reload();
+                }else{
+                    swal({
+                        title: "Create",
+                        text: response.message,
+                        icon: "warning",
+                        button: "Oke",
+                    });
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+            var response = JSON.parse(xhr.responseText);
+            $('#form_jenis_dokumen').prepend(validation(response));
+          }
+        });
+      }
+
+      function store(){
+        $('#form_jenis_dokumen .alert').remove();
+        $.ajax({
+          url: '<?= route('jenis_dokumen.store'); ?>',
+          dataType: 'json',
+          type: 'post',
+          data: $('#form_jenis_dokumen').serialize(),
+          success: function(response){
+            if(response.success){
+              alert(response.message);
+              bootbox.hideAll();
+              Datatable.ajax.reload();
+            }else{
+              alert(response.message);
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError){
+            var response = JSON.parse(xhr.responseText);
+            $('#form_jenis_dokumen').prepend(validation(response));
+          }
+        });
+      }
+
+      function destroy(id){
+        $.ajax({
+          url: '<?= route('jenis_dokumen.delete') ?>/'+id,
+          dataType: 'json',
+          success: function(response){
+            if(response.success){
+                swal({
+                    title: "delete",
+                    text: response.message,
+                    icon: "success",
+                    button: "Oke",
+                    });
+                    Datatable.ajax.reload();
+                    bootbox.hideAll();
+            }else{
+              swal({
+                    title: "delete",
+                    text: response.message,
+                    icon: "warning",
+                    button: "Oke",
+                    });
+                    bootbox.hideAll();
+            }
+          }
+        });
+      }
+
+      function validation(errors){
+        var validation = '<div class="alert alert-danger">';
+            validation += '<p><b>'+errors.message+'</b></p>';
+            $.each(errors.errors, function(i, error){
+              validation += error[0]+'<br>';
+            });
+            validation += '</div>';
+            return validation;
+      }
     </script>
 @endsection
