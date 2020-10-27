@@ -24,12 +24,12 @@ Route::group(['prefix' => 'dashboard'], function(){
 
 Route::group(['prefix' => 'koneksi'], function(){
     Route::get('/', 'KoneksiController@index')->name('koneksi');
-    Route::get('create', 'KoneksiController@create')->name('koneksi.create');
     Route::get('get', 'KoneksiController@get')->name('koneksi.get');
     Route::post('store', 'KoneksiController@store')->name('koneksi.store');
-    Route::post('update/{id?}', 'KoneksiController@update')->name('koneksi.update');
     Route::get('edit/{id?}', 'KoneksiController@edit')->name('koneksi.edit');
+    Route::get('create', 'KoneksiController@create')->name('koneksi.create');
     Route::get('delete/{id?}', 'KoneksiController@delete')->name('koneksi.delete');
+    Route::post('update/{id?}', 'KoneksiController@update')->name('koneksi.update');
 });
 
 Route::group(['prefix' => 'start'], function(){
@@ -39,23 +39,23 @@ Route::group(['prefix' => 'start'], function(){
 Route::group(['prefix' => 'objek'], function(){
     Route::get('/', 'ObjekController@index')->name('objek');
     Route::get('get', 'ObjekController@get')->name('objek.get');
-    Route::get('create', 'ObjekController@create')->name('objek.create');
     Route::post('store', 'ObjekController@store')->name('objek.store');
+    Route::get('view/{id?}', 'ObjekController@view')->name('objek.view');
+    Route::get('create', 'ObjekController@create')->name('objek.create');
     Route::get('edit/{id?}', 'ObjekController@edit')->name('objek.edit');
     Route::get('delete/{id?}', 'ObjekController@delete')->name('objek.delete');
-    Route::get('view/{id?}', 'ObjekController@view')->name('objek.view');
-    Route::post('update/{id?}', 'ObjekController@update')->name('objek.update');
     Route::get('get_data', 'ObjekController@get_data')->name('objek.get_data');
+    Route::post('update/{id?}', 'ObjekController@update')->name('objek.update');
 });
 
 Route::group(['prefix' => 'jenis_dokumen'], function(){
-    Route::get('/', 'Jenis_Dokumen_Controller@index')->name('jenis_dokumen');
-    Route::get('create', 'Jenis_Dokumen_Controller@create')->name('jenis_dokumen.create');
-    Route::get('get', 'Jenis_Dokumen_Controller@get_data')->name('jenis_dokumen.get_data');
-    Route::post('store', 'Jenis_Dokumen_Controller@store')->name('jenis_dokumen.store');
-    Route::post('update/{id?}', 'Jenis_Dokumen_Controller@update')->name('jenis_dokumen.update');
-    Route::get('edit/{id?}', 'Jenis_Dokumen_Controller@edit')->name('jenis_dokumen.edit');
-    Route::get('delete/{id?}', 'Jenis_Dokumen_Controller@delete')->name('jenis_dokumen.delete');
+    Route::get('/', 'JenisDokumenController@index')->name('jenis_dokumen');
+    Route::get('get', 'JenisDokumenController@get')->name('jenis_dokumen.get');
+    Route::post('store', 'JenisDokumenController@store')->name('jenis_dokumen.store');
+    Route::get('edit/{id?}', 'JenisDokumenController@edit')->name('jenis_dokumen.edit');
+    Route::get('create', 'JenisDokumenController@create')->name('jenis_dokumen.create');
+    Route::get('delete/{id?}', 'JenisDokumenController@delete')->name('jenis_dokumen.delete');
+    Route::post('update/{id?}', 'JenisDokumenController@update')->name('jenis_dokumen.update');
 });
 
 Route::group(['prefix' => 'cetak'], function(){

@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DataTables;
 use App\jenis_dokumen;
+use Illuminate\Http\Request;
 
-class Jenis_Dokumen_Controller extends Controller
+class JenisDokumenController extends Controller
 {
     
     // public function index(){
     //     $title = 'Master Jenis Dokumen';
     //     return view('master.jenis_dokumen.index', compact('title'));
     // }
+        
+    // public function get(){
+    //     $model = jenis_dokumen::all();
+    //     return view('master.Jenis_Dokumen.get', compact('model'));
+    // }
 
-    public function get_data(){
+    public function get(){
         return Datatables::of(jenis_dokumen::all())
         ->make(true);
         return view('master.jenis_dokumen.index');
@@ -23,11 +28,6 @@ class Jenis_Dokumen_Controller extends Controller
     public function index(){
         $title = 'Master Jenis Dokumen';
         return view('master.Jenis_Dokumen.index', compact('title'));
-    }
-
-    public function get(){
-        $model = jenis_dokumen::all();
-        return view('master.Jenis_Dokumen.get', compact('model'));
     }
 
     public function create(){
@@ -56,18 +56,19 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function store(Request $request){
-        $request->validate(self::validasi());
-        if(jenis_dokumen::create($request->all())){
-            return [
-                'success' => true,
-                'message' => 'Data Berhasil Di Tambahkan'
-            ];
-        }else{
-                return [
-                    'success' => false,
-                    'message' => 'Data Gagal Di Tambahkan'
-                ];
-        }
+        dd($request->file('file'));
+        // $request->validate(self::validasi());
+        // if(jenis_dokumen::create($request->all())){
+        //     return [
+        //         'success' => true,
+        //         'message' => 'Data Berhasil Di Tambahkan'
+        //     ];
+        // }else{
+        //         return [
+        //             'success' => false,
+        //             'message' => 'Data Gagal Di Tambahkan'
+        //         ];
+        // }
     }
 
     public function delete($id){
@@ -96,7 +97,7 @@ class Jenis_Dokumen_Controller extends Controller
         return [
             'nama_surat' => 'required',
             'object' => 'required',
-            'file' => '',
+            'file' => 'required',
         ];
     }
 

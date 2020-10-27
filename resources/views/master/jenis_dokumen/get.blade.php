@@ -1,4 +1,4 @@
-@foreach($model as $row)
+<!-- @foreach($model as $row)
         <tr>
             <td>{!! $row->id !!}</td>
             <td>{!! $row->nama_surat !!}</td>
@@ -10,4 +10,4 @@
                 <a href="javascript:void()" class="btn btn-danger btn-sm" onclick="destroy(<?= $row->id ?>)">delete</a>
             </td>
         </tr>
-    @endforeach
+    @endforeach -->
